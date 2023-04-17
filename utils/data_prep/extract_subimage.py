@@ -3,13 +3,13 @@ from multiprocessing import Pool
 import numpy as np
 import os
 import sys
-from utils.common import ProgressBar
+from tqdm import tqdm
 
 
 def main():
     """A multi-thread tool to crop sub imags."""
-    input_folder = '/data/liwenbo/datasets/DIV2K/DIV2K_train_HR'  # original image folder
-    save_folder = '/data/liwenbo/datasets/DIV2K/DIV2K_train_HR_sub'  # the created sub-image folder
+    input_folder = r'C:\Users\Michi\Documents\Deep Learning\Simple-SR\data\DIV2K_train_HR'
+    save_folder = r'C:\Users\Michi\Documents\Deep Learning\Simple-SR\data\DIV2K_train_HR_sub'
     n_thread = 20
 
     # for hr
@@ -48,16 +48,15 @@ def main():
         path = [os.path.join(root, x) for x in file_list]  # assume only images in the input_folder
         img_list.extend(path)
 
-    def update(arg):
-        pbar.update(arg)
+    # def update(arg):
+    #     pbar.update(arg)
 
-    pbar = ProgressBar(len(img_list))
+    # pbar = ProgressBar(len(img_list))
 
     pool = Pool(n_thread)
     for path in img_list:
         pool.apply_async(worker,
-                         args=(path, save_folder, crop_sz, step, thres_sz, compression_level),
-                         callback=update)
+                         args=(path, save_folder, crop_sz, step, thres_sz, compression_level))
     pool.close()
     pool.join()
     print('All subprocesses done.')

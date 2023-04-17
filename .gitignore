@@ -43,3 +43,9 @@ Thumbs.db
 # saved models #
 ################
 *.pth
+
+# Custom gitignore for data
+data/DIV2K_train_HR/*.png
+data/DIV2K_train_HR/*.jpg
+data/DIV2K_train_HR_sub/*.png
+data/DIV2K_train_HR_sub/*.jpg
